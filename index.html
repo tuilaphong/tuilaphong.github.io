@@ -58,8 +58,9 @@
         function button_click() {
         let name = document.querySelector('#name').value;
         let result = confirm("I love " + name + ". Do you love me?");
+        let n = 0
         while(result !== true) {
-            let n = n+1
+            n = n+1
             result = confirm("I love " + name + " so " + much*n+ ". Do you love me?");
         }
         document.body.className = "bg-heart";
