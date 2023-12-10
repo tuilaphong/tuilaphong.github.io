@@ -1,0 +1,42 @@
+.thumbnail {
+  width: 100%;
+}
+
+.khung {
+  margin-top: -27px;
+  display: inline-block;
+  vertical-align: top;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+}
+
+
+.lg1 {
+  margin-top: 17px;
+  border-radius: 20px;
+  width: 42px;
+}
+
+.lg1:hover {
+  cursor: pointer;
+}
+
+.video-grid {
+  margin-left: 70px;
+  background-color: #f7f4f4;
+  border-top: 1px solid #cccccc;
+  padding: 30px;
+  display: grid;
+  column-gap: 16px;
+  row-gap: 22px;
+
+  @media (min-width: 1125px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media (min-width: 870px) and (max-width: 1124px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  grid-template-columns: 1fr 1fr;
+}
