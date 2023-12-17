@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keo Bua Bao</title>
+  <style>
+    body {
+      background-color: rgb(25, 25, 25);
+      color: white;
+      font-family: Arial;
+      font-size: 20px;
+    }
+
+    .bodyFull {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+    }
+
+    .rockLeafScis {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+    }
+
+    .setting {
+      transition: all 0.3s;
+      display: inline-block;
+      margin: 15px;
+      height: 150px;
+      width: 150px;
+      border: 10px;
+      border-radius: 50px;
+      border-color: antiquewhite;
+    }
+
+    .setting:hover {
+      height: 180px;
+      width: 180px;
+      background-color: aquamarine;
+      cursor: pointer;
+    }
+
+    .setting:active {
+      height: 160px;
+      width: 160px;
+      background-color: rgb(43, 78, 66);
+    }
+
+    .mainSet {
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+    }
+
+    .mainTittle {
+      font-size: 100%;
+      font-weight: bold;
+    }
+
+    .newScoreButton {
+      margin: 30px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .displayMain {
+      font-size: 100%;
+    }
+
+    .setting4 {
+      height: 50px;
+      width: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bodyFull">
+    <div class="rockLeafScis">
+      <!--Rock = 0 | Leaf = 1 | Scis = 2-->
+      <div><img class="setting setting1" src="Icon/rock.png" onclick="check(0, 'rock')"></div>
+      <div><img class="setting setting2" src="Icon/leaf.png" onclick="check(1, 'leaf')"></div>
+      <div><img class="setting setting3" src="Icon/scis.png" onclick="check(2, 'scis')"></div>
+    </div>
+    <div class="mainSet">
+      <div class="mainTittle">KEO BUA BAO</div>
+      <div class="score">Score: 0</div>
+      <div><button class="newScoreButton" onclick="
+        score.win =  0;
+        score.lose = 0;
+        score.draw = 0;
+        checkScore();
+        localStorage.removeItem('score');
+      ">New score!</button></div>
+      <div class="displayMain"></div>
+      <div class="title2"></div>
+    </div>
+  </div>
+  <script>
+    let score = JSON.parse(localStorage.getItem('score'));
+    if (score === null) {
+      score = {
+        win: 0,
+        lose: 0,
+        draw: 0,
+      };
+    }
+    checkScore();
+    function check(myChoose, iconMyChoose) {
+      checkScore();
+      let comChoose = Math.random();
+      let iconComChoose = '';
+      if (comChoose < 1 / 3) {
+        comChoose = 1;
+        iconComChoose = 'leaf';
+      }
+      else if (comChoose < 2 / 3) {
+        comChoose = 2;
+        iconComChoose = 'scis';
+      }
+      else {
+        comChoose = 0;
+        iconComChoose = 'rock';
+      }
+      if (myChoose - comChoose === 1 || comChoose - myChoose === 2) {
+        document.querySelector('.displayMain').innerHTML = `You Win!`;
+        score.win += 1;
+      }
+      else if (comChoose - myChoose === 1 || myChoose - comChoose === 2) {
+        document.querySelector('.displayMain').innerHTML = `You Lose!`;
+        score.lose += 1;
+      }
+      else {
+        document.querySelector('.displayMain').innerHTML = `Draw!`;
+        score.draw += 1;
+      }
+      checkScore();
+      document.querySelector('.title2').innerHTML =
+        `You choose <img src="Icon/${iconMyChoose}.png" class="setting4"> | <img src="Icon/${iconComChoose}.png" class="setting4"> Computer choose`;
+    }
+    localStorage.setItem('score', JSON.stringify(score));
+    function checkScore() {
+      document.querySelector('.score').innerHTML = `Score: Win: ${score.win}, Lose: ${score.lose}, Draw: ${score.draw}`;
+    }
+  </script>
+</body>
+
+</html>
